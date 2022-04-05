@@ -1,13 +1,21 @@
-const ctrlWrapper = (ctrl) => {
-  const func = async (req, res, next) => {
-    try {
-      await ctrl(req, res);
-    } catch (error) {
-      next(error);
-    }
-  };
+// const { createError } = require("../middleware/createError");
 
-  return func;
-};
+// const ctrlWrapper = (ctrl) => {
+//   const func = async (req, res, next) => {
+//     try {
+//       await ctrl(req, res);
+//     } catch (error) {
+//       if (
+//         error.message.includes("validation failed") ||
+//         error.message.includes("required")
+//       ) {
+//         next(createError(400, error.message));
+//       }
+//       next(error);
+//     }
+//   };
 
-module.exports = ctrlWrapper;
+//   return func;
+// };
+
+// module.exports = ctrlWrapper;
