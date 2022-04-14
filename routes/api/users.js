@@ -1,0 +1,29 @@
+const express = require("express");
+const { getCurrentUser } = require("../../controllers/users");
+const userCtrl = require("../../controllers/users");
+const { validation, ctrlWrapper, authenticate } = require("../../middleware");
+const { userJoiSchemas } = require("../../models/user");
+const router = express.Router();
+
+router.get("/current", authenticate, getCurrentUser);
+
+router.post(
+  "/signup",
+  validation(userJoiSchemas.register),
+  ctrlWrapper(userCtrl.registerUser)
+);
+router.post(
+  "/login",
+  validation(userJoiSchemas.register),
+  ctrlWrapper(userCtrl.loginUser)
+);
+
+router.post("/logout", authenticate, ctrlWrapper(userCtrl.logoutUser));
+
+router.patch(
+  "/:id",
+  validation(userJoiSchemas.updateSub),
+  ctrlWrapper(userCtrl.updateUserSub)
+);
+
+module.exports = router;
