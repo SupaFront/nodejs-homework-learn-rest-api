@@ -1,7 +1,12 @@
 const express = require("express");
 const { getCurrentUser } = require("../../controllers/users");
 const userCtrl = require("../../controllers/users");
-const { validation, ctrlWrapper, authenticate } = require("../../middleware");
+const {
+  validation,
+  ctrlWrapper,
+  authenticate,
+  upload,
+} = require("../../middleware");
 const { userJoiSchemas } = require("../../models/user");
 const router = express.Router();
 
@@ -19,6 +24,13 @@ router.post(
 );
 
 router.post("/logout", authenticate, ctrlWrapper(userCtrl.logoutUser));
+
+router.patch(
+  "/avatars",
+  authenticate,
+  upload.single("avatar"),
+  ctrlWrapper(userCtrl.uploadUserAvatar)
+);
 
 router.patch(
   "/:id",
