@@ -38,4 +38,12 @@ router.patch(
   ctrlWrapper(userCtrl.updateUserSub)
 );
 
+router.post(
+  "/verify",
+  validation(userJoiSchemas.verify),
+  ctrlWrapper(userCtrl.sendVerificationEmail)
+);
+
+router.get("/verify/:verificationToken", ctrlWrapper(userCtrl.verifyUser));
+
 module.exports = router;
